@@ -39,8 +39,6 @@ def part1():
     ans = 0
     for line in get_input():
         values = list(map(int, line.split()))
-        if not all_increasing(values) and not all_decreasing(values):
-            continue 
         if good(values):
             ans += 1
     return ans
@@ -49,10 +47,10 @@ def part2():
     ans = 0
     for line in get_input():
         values = list(map(int, line.split()))
-        n = len(values)
         if good(values):
             ans += 1
             continue
+        n = len(values)
         for i in range(0, n):
             nvalues = values[:i] + values[i+1:]
             if good(nvalues):
