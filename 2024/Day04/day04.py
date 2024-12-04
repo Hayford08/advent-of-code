@@ -45,49 +45,21 @@ def part1():
                     ans += 1
     return ans
 
-def rotate(grid):
-    n = len(grid)
-    m = len(grid[0])
-    new_grid = []
-    for i in range(m):
-        row = []
-        for j in range(n):
-            row.append(grid[j][m - i - 1])
-        new_grid.append(row)
-    return new_grid
-
-def check(grid, target):
-    for i in range(3):
-        for j in range(3):
-            if target[i][j] == ".":
-                continue
-            if target[i][j] != grid[i][j]:
-                return False
-    return True
-
 def part2():
     ans = 0
-    target = ["M.S", ".A.", "M.S"]
     grid = []
     for line in get_input():
         grid.append(list(line.strip()))
     
     n = len(grid)
     m = len(grid[0])
-    for i in range(n - 2):
-        for j in range(m - 2):
-            curr = []
-            for dx in range(3):
-                row = []
-                for dy in range(3):
-                    row.append(grid[i + dx][j + dy])
-                curr.append(row)
-            for _ in range(4):
-                if check(curr, target):
-                    ans += 1
-                    break
-                curr = rotate(curr)
-            
+    for i in range(1, n - 1):
+        for j in range(1, m - 1):
+            if grid[i][j] != "A":
+                continue
+            corners = [grid[i - 1][j - 1], grid[i - 1][j + 1], grid[i + 1][j + 1], grid[i + 1][j - 1]]
+            if "".join(corners) in ["MMSS", "MSSM", "SSMM", "SMMS"]:
+                ans += 1
     return ans
 
 if __name__ == "__main__":
