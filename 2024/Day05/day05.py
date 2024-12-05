@@ -15,52 +15,36 @@ except:
 def get_input():
     with open("input.txt", "r") as fp:
         return fp.read().strip().split("\n\n")
-    
-def get_graph(section):
-    graph = defaultdict(set)
-    for line in section.split('\n'):
-        u, v = line.split('|')
-        graph[u].add(v)
-    return graph
 
-def good(graph, nodes):
-    n = len(nodes)
-    for i in range(n):
-        u = nodes[i]
-        for j in range(i + 1, n):
-            v = nodes[j]
-            if u in graph[v]:
-                return False
-    return True
+section1, section2 = get_input()
+graph = defaultdict(set)
+for line in section1.split('\n'):
+    u, v = line.split('|')
+    graph[u].add(v)
+
+def cmp(nodeu, nodev):
+    if nodeu in graph[nodev]:
+        return -1
+    if nodev in graph[nodeu]:
+        return 1
+    return 0
 
 def part1():
     ans = 0
-    section1, section2 = get_input()
-    graph = get_graph(section1)
-    for line in section2.split('\n'):
-        nodes = line.strip().split(',')
-        if good(graph, nodes):
+    for nodes in section2.split('\n'):
+        nodes = nodes.strip().split(',')
+        order = sorted(nodes, key=cmp_to_key(cmp), reverse=True)
+        if order == nodes:
             ans += int(nodes[len(nodes) // 2])
     return ans
 
 def part2():
     ans = 0
-    section1, section2 = get_input()
-    graph = get_graph(section1)
-
-    def cmp(u, v):
-        if u in graph[v]:
-            return -1
-        if v in graph[u]:
-            return 1
-        return 0
-
-    for line in section2.split('\n'):
-        nodes = line.strip().split(',')
-        if good(graph, nodes):
-            continue
-        order = sorted(nodes, key=cmp_to_key(cmp))
-        ans += int(order[len(nodes) // 2])
+    for nodes in section2.split('\n'):
+        nodes = nodes.strip().split(',')
+        order = sorted(nodes, key=cmp_to_key(cmp), reverse=True)
+        if order != nodes:
+            ans += int(order[len(nodes) // 2])
     return ans
 
 if __name__ == "__main__":
