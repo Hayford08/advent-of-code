@@ -19,13 +19,13 @@ def get_input():
 section1, section2 = get_input()
 graph = defaultdict(set)
 for line in section1.split('\n'):
-    u, v = line.split('|')
-    graph[u].add(v)
+    a, b = line.split('|')
+    graph[a].add(b)
 
-def cmp(nodeu, nodev):
-    if nodeu in graph[nodev]:
+def cmp(u, v):
+    if u in graph[v]:
         return -1
-    if nodev in graph[nodeu]:
+    if v in graph[u]:
         return 1
     return 0
 
