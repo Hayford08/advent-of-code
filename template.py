@@ -14,18 +14,18 @@ except:
 def get_input():
     with open("input.txt", "r") as fp:
         return fp.readlines()
-
-def part1():
-    ans = 0
-    for line in get_input():
-        pass 
-    return ans
-
-def part2():
-    ans = 0
+    
+def parse_input():
+    result = []
     for line in get_input():
         pass
-    return ans
+    return result
+
+def part1():
+    data = parse_input()
+
+def part2():
+    data = parse_input()
 
 if __name__ == "__main__":
     print(part1())
