@@ -25,6 +25,10 @@ def solve1(data):
     def helper(idx, val):
         if idx == n:
             return val == target
+        
+        if val > target:
+            return False
+        
         if (idx, val) in dp:
             return dp[(idx, val)]
         if helper(idx + 1, val + res[idx]):
@@ -53,6 +57,10 @@ def solve2(data):
     def helper(idx, val):
         if idx == n:
             return val == target
+
+        if val > target:
+            return False
+
         if (idx, val) in dp:
             return dp[(idx, val)]
         
@@ -81,5 +89,5 @@ def part2():
     return ans
 
 if __name__ == "__main__":
-    # print(part1())
+    print(part1())
     print(part2())
