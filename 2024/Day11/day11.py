@@ -23,31 +23,9 @@ def parse_input():
             result.append(list(map(int, line.split())))
     return result[0]
 
-N = 75
 YEAR = 2024
-
-def part1():
-    data = parse_input()
-    for _ in range(N):
-        ndata = []
-        for val in data:
-            if val == 0:
-                ndata.append(1)
-            else:
-                s = str(val)
-                size = len(s)
-                if size % 2 == 0:
-                    ndata.append(int(s[:size//2]))
-                    ndata.append(int(s[size//2:]))
-                else:
-                    ndata.append(val * YEAR)
-        data = ndata
-    return len(data)
-
-def part2():
-    data = parse_input()
+def get_num_stones(data, blinks):
     dp = {}
-
     def solve(stone, blink):
         if blink == 0:
             return 1
@@ -70,9 +48,15 @@ def part2():
     
     ans = 0
     for stone in data:
-        ans += solve(stone, N)
+        ans += solve(stone, blinks)
     return ans
 
+def part1():
+    return get_num_stones(parse_input(), 25)
+
+def part2():
+    return get_num_stones(parse_input(), 75)
+
 if __name__ == "__main__":
-    # print(part1())
+    print(part1())
     print(part2())
