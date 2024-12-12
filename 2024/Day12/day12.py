@@ -60,10 +60,9 @@ def part2():
     m = len(grid[0])
     visited = [[False for _ in range(m)] for _ in range(n)]
 
-    def dfs(x, y, region):
-        visited[x][y] = True 
+    def dfs(x, y, region, boundary):
+        visited[x][y] = True
         area = 1
-        boundary = set()
         for dx, dy in DIRS:
             nx, ny = x + dx, y + dy
             if not (0 <= nx < n and 0 <= ny < m) or grid[nx][ny] != region:
@@ -71,16 +70,15 @@ def part2():
                 continue
             if visited[nx][ny]:
                 continue
-            a, b = dfs(nx, ny, region)
-            area += a
-            boundary |= b
-        return area, boundary
+            area += dfs(nx, ny, region, boundary)
+        return area
     
     result = 0
     for i in range(n):
         for j in range(m):
             if not visited[i][j]:
-                area, boundary = dfs(i, j, grid[i][j])
+                boundary = set()
+                area = dfs(i, j, grid[i][j], boundary)
                 sides = 0
                 for x, y, dx, dy in sorted(boundary):
                     if dx != 0 and (x, y - 1, dx, dy) not in boundary:
