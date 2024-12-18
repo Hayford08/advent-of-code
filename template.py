@@ -13,7 +13,7 @@ except:
 
 def get_input():
     with open("input.txt", "r") as fp:
-        return fp.readlines()
+        return fp.read().strip().split("\n")
     
 def parse_input():
     result = []
