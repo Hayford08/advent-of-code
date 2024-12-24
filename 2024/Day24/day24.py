@@ -72,7 +72,7 @@ def part1():
 # inspired by https://www.youtube.com/watch?v=SU6lp6wyd3I
 
 def part2():
-    values, rules = parse_input()
+    _, rules = parse_input()
     todo = {}
     for rule in rules:
         a, op, b, c = rule
