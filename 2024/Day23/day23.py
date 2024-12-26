@@ -52,31 +52,34 @@ def part1():
                 break
     return res
 
+def get_max_clique(graph):
+    max_clique = set()
+
+    def bron_kerbosch(curr, potential, processed):
+        if not potential and not processed:
+            nonlocal max_clique
+            if len(curr) > len(max_clique):
+                max_clique = curr
+            return
+
+        parr = list(potential)
+        while parr:
+            u = parr.pop()
+            ncurr = curr | {u}
+            npotential = potential & graph[u]
+            nprocessed = processed & graph[u]
+
+            bron_kerbosch(ncurr, npotential, nprocessed)
+            potential.remove(u)
+            processed.add(u)
+    
+    bron_kerbosch(set(), set(graph.keys()), set())
+    return max_clique
+
 
 def part2():
     graph = parse_input()
-    scc = set()
-
-    def dfs(u, components):
-        key = tuple(sorted(components))
-        if key in scc:
-            return
-
-        scc.add(key)
-        for v in graph[u]:
-            if v in components:
-                continue
-            if all(v in graph[w] for w in components):
-                dfs(v, {*components, v})
-
-    for u in graph:
-        dfs(u, {u})
-    mx = 0
-    result = None
-    for sc in scc:
-        if len(sc) > mx:
-            mx = len(sc)
-            result = sc
+    result = get_max_clique(graph)
     return ",".join(sorted(result))
 
 
