@@ -1,4 +1,4 @@
-# Day X: https://adventofcode.com/2025/day/X
+# Day 5: https://adventofcode.com/2025/day/5
 
 from collections import Counter, deque, defaultdict
 import os
