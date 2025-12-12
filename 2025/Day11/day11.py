@@ -1,11 +1,9 @@
-# Day X: https://adventofcode.com/2025/day/X
+# Day 11: https://adventofcode.com/2025/day/11
 
-from collections import Counter, deque, defaultdict
 from functools import lru_cache
 import os
 import sys
 import re
-import math
 
 sys.setrecursionlimit(20000)
 
