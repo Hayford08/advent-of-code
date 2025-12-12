@@ -1,5 +1,6 @@
 # Day 11: https://adventofcode.com/2025/day/11
 
+from collections import defaultdict
 from functools import lru_cache
 import os
 import sys
